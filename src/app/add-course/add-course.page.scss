@@ -1,0 +1,46 @@
+.error-message {
+  color: var(--ion-color-danger);
+  font-size: 0.8em;
+  margin: 5px 16px;
+}
+
+.no-photos {
+  text-align: center;
+  padding: 20px;
+  color: var(--ion-color-medium);
+}
+
+.photo-container {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.delete-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  --background: rgba(255, 255, 255, 0.8);
+  --border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.keywords-container {
+  margin-top: 10px;
+}
+
+.keywords-container ion-chip {
+  margin: 2px;
+  cursor: pointer;
+}
+
+.image-preview {
+  text-align: center;
+}
+.image-preview img {
+  text-align: center;
+  max-width: 100%;
+  height: 150px;
+  margin-top: 10px;
+  border-radius: 8px;
+}
