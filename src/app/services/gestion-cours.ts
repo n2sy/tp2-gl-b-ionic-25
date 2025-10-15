@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Course } from '../models/course.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GestionCours {
-   private allCourses: Course[] = [
+  private allCourses: Course[] = [
     {
       id: 1,
       title: 'Angular',
@@ -28,16 +28,21 @@ export class GestionCours {
       keywords: ['mobile', 'activity', 'layout'],
     },
   ];
-  
-  getCourseById(selectedId) {
-    return this.allCourses.find(element => element.id == selectedId)
+
+  addCourse(newCourse) {
+    newCourse.id = crypto.randomUUID();
+    this.allCourses.push(newCourse);
   }
-  
+
+  getCourseById(selectedId) {
+    return this.allCourses.find((element) => element.id == selectedId);
+  }
+
   deleteCourse(selectedId) {
-    let i = this.allCourses.findIndex(element => element.id == selectedId)
+    let i = this.allCourses.findIndex((element) => element.id == selectedId);
     this.allCourses.splice(i, 1);
   }
-  
+
   getAllCourses() {
     return this.allCourses;
   }

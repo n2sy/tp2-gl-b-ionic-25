@@ -5,58 +5,82 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <div class="ion-margin">
-        <form [formGroup]="addForm" (ngSubmit)="submitHandler()">
-            <ion-card>
-                <ion-card-header>
-                    <ion-card-title>
-                        Informations sur le cours
-                    </ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                    <ion-label>Titre du cours*</ion-label>
-                    <ion-input formControlName="title" type="texte"></ion-input>
-                    <ion-label>Auteur du cours*</ion-label>
-                    <ion-input formControlName="author" type="texte"></ion-input>
-                    <ion-label>Logo du cours</ion-label>
-                    <ion-input formControlName="logo" type="url"></ion-input>
-                    
-                    <div class="image-preview">
-                        <img [src]="addForm.get('logo').value">
-                    </div>
-                    
-                <ion-button type="submit">Ajouter</ion-button>
-                </ion-card-content>
-            </ion-card>
-            <ion-card>
-                <ion-card-header>
-                    <ion-card-title>
-                        Mots-clés
-                    </ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                    <ion-label>Ajouter un mot-clé</ion-label>
-                    <ion-input (keyup.space)="addKeyword()" [ngModelOptions]="{standalone : true}" [(ngModel)]="inputKeywords" type="texte"></ion-input>
-                 <div class="keywords-container ">
-                    @for (keyword of this.addForm.get("keywords").value; track $index) {
-                        <ion-chip (click)="deleteKeyword(keyword)" color="primary"> {{ keyword }} </ion-chip>
-                    }
-                    
-                 </div>
-                </ion-card-content>
-            </ion-card>
-            <ion-card>
-                <ion-card-header>
-                    <ion-card-title>
-                        Photos Additionnelles
-                    </ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                    <ion-label>Aucune photo ajoutée</ion-label>
-                    <ion-button (click)="presentActionSheet()" color="primary" expand="block" fill="outline">Ajouter une photo</ion-button>
-                </ion-card-content>
-            </ion-card>
-        </form>
-    </div>
+  <div class="ion-margin">
+    <form [formGroup]="addForm" (ngSubmit)="submitHandler()">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title> Informations sur le cours </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-label>Titre du cours*</ion-label>
+          <ion-input formControlName="title" type="texte"></ion-input>
+          <ion-label>Auteur du cours*</ion-label>
+          <ion-input formControlName="author" type="texte"></ion-input>
+          <ion-label>Logo du cours</ion-label>
+          <ion-input formControlName="logo" type="url"></ion-input>
 
+          <div class="image-preview">
+            <img [src]="addForm.get('logo').value" />
+          </div>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title> Mots-clés </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-label>Ajouter un mot-clé</ion-label>
+          <ion-input
+            (keyup.space)="addKeyword()"
+            [ngModelOptions]="{standalone : true}"
+            [(ngModel)]="inputKeywords"
+            type="texte"
+          ></ion-input>
+          <div class="keywords-container">
+            @for (keyword of this.addForm.get("keywords").value; track $index) {
+            <ion-chip (click)="deleteKeyword(keyword)" color="primary">
+              {{ keyword }} </ion-chip
+            >
+            }
+          </div>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title> Photos Additionnelles </ion-card-title>
+        </ion-card-header>
+        @if (!temporaryPhotos.length) {
+        <ion-card-content>
+          <ion-label>Aucune photo ajoutée</ion-label>
+          <ion-button
+            (click)="presentActionSheet()"
+            color="primary"
+            expand="block"
+            fill="outline"
+            >Ajouter une photo</ion-button
+          >
+        </ion-card-content>
+
+        } @else {
+        <ion-label>Photos sélectionnés</ion-label>
+        <ion-grid>
+          <ion-row>
+            @for (p of temporaryPhotos; track $index) {
+            <ion-col size="6">
+              <ion-item>
+                <img [src]="p" />
+                <ion-button color="red">
+                  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-col>
+
+            }
+          </ion-row>
+        </ion-grid>
+        }
+      </ion-card>
+      <ion-button expand="block" type="submit">Ajouter ce cours</ion-button>
+    </form>
+  </div>
 </ion-content>
