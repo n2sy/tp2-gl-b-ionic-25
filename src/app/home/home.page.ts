@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Course } from '../models/course.model';
+import { GestionCours } from '../services/gestion-cours';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,11 @@ import { Course } from '../models/course.model';
   standalone: false,
 })
 export class HomePage {
-c = new Course() 
-
-constructor() {}
+    tabCourses : Course[] = [];
+    private courseService = inject(GestionCours)
+  constructor() {}
+  
+  ngOnInit() {
+   this.tabCourses = this.courseService.getAllCourses();
+  }
 }

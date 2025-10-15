@@ -12,11 +12,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'add-course',
+    path: 'add',
     loadChildren: () => import('./add-course/add-course.module').then( m => m.AddCoursePageModule)
   },
   {
-    path: 'details-course',
+    path: 'details/:id',
     loadChildren: () => import('./details-course/details-course.module').then( m => m.DetailsCoursePageModule)
   },
 ];

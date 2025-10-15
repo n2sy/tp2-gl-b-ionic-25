@@ -1,13 +1,62 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>addCourse</ion-title>
+  <ion-toolbar color="tertiary">
+    <ion-title>Add</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">addCourse</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <div class="ion-margin">
+        <form [formGroup]="addForm" (ngSubmit)="submitHandler()">
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-title>
+                        Informations sur le cours
+                    </ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-label>Titre du cours*</ion-label>
+                    <ion-input formControlName="title" type="texte"></ion-input>
+                    <ion-label>Auteur du cours*</ion-label>
+                    <ion-input formControlName="author" type="texte"></ion-input>
+                    <ion-label>Logo du cours</ion-label>
+                    <ion-input formControlName="logo" type="url"></ion-input>
+                    
+                    <div class="image-preview">
+                        <img [src]="addForm.get('logo').value">
+                    </div>
+                    
+                <ion-button type="submit">Ajouter</ion-button>
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-title>
+                        Mots-clés
+                    </ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-label>Ajouter un mot-clé</ion-label>
+                    <ion-input (keyup.space)="addKeyword()" [ngModelOptions]="{standalone : true}" [(ngModel)]="inputKeywords" type="texte"></ion-input>
+                 <div class="keywords-container ">
+                    @for (keyword of this.addForm.get("keywords").value; track $index) {
+                        <ion-chip (click)="deleteKeyword(keyword)" color="primary"> {{ keyword }} </ion-chip>
+                    }
+                    
+                 </div>
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-title>
+                        Photos Additionnelles
+                    </ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-label>Aucune photo ajoutée</ion-label>
+                    <ion-button (click)="presentActionSheet()" color="primary" expand="block" fill="outline">Ajouter une photo</ion-button>
+                </ion-card-content>
+            </ion-card>
+        </form>
+    </div>
+
 </ion-content>
